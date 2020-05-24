@@ -158,7 +158,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/05/24/k8s/" class="post-title-link" itemprop="url">macos使用vwarefusion搭建k8s环境</a>
+            <a href="/2020/05/24/k8s/" class="post-title-link" itemprop="url">MacOS使用VMware Fusion搭建k8s环境</a>
         </h2>
 
         <div class="post-meta">
@@ -169,7 +169,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-05-24 10:29:17 / Modified: 11:24:05" itemprop="dateCreated datePublished" datetime="2020-05-24T10:29:17+08:00">2020-05-24</time>
+              <time title="Created: 2020-05-24 10:29:17 / Modified: 14:46:19" itemprop="dateCreated datePublished" datetime="2020-05-24T10:29:17+08:00">2020-05-24</time>
             </span>
 
           
@@ -183,9 +183,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="k8s环境配置说明"><a href="#k8s环境配置说明" class="headerlink" title="k8s环境配置说明"></a>k8s环境配置说明</h2><p>1台server，2台node节点</p>
-<h2 id="配置NAT静态ip"><a href="#配置NAT静态ip" class="headerlink" title="配置NAT静态ip"></a>配置NAT静态ip</h2><p>server:172.16.108.129<br><img src="/Users/sunchaojun/Documents/BLOGS/source/images.jpeg" alt="server nat 网卡配置"><br>node1:172.16.108.130<br>node2:172.16.108.131</p>
-
+          <h1 id="k8s环境配置说明"><a href="#k8s环境配置说明" class="headerlink" title="k8s环境配置说明"></a>k8s环境配置说明</h1><p>1台server 2台node节点</p>
+<h2 id="配置静态ip"><a href="#配置静态ip" class="headerlink" title="配置静态ip"></a>配置静态ip</h2><p>需要为server和node创建两个网卡<br>1.NAT       2.HostOnly<br>  Mac系统HostOnly需要在VMwareFusion的偏好中，选择网络，自定一栏中先创建vmnet，并配置网段）<br>NAT指定静态ip<br>server:172.16.108.129</p>
+<h2 id="server-NAT静态ip的配置"><a href="#server-NAT静态ip的配置" class="headerlink" title="server NAT静态ip的配置"></a>server NAT静态ip的配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">TYPE&#x3D;&quot;Ethernet&quot;</span><br><span class="line">PROXY_METHOD&#x3D;&quot;none&quot;</span><br><span class="line">BROWSER_ONLY&#x3D;&quot;no&quot;</span><br><span class="line">BOOTPROTO&#x3D;&quot;static&quot;</span><br><span class="line">DEFROUTE&#x3D;&quot;yes&quot;</span><br><span class="line">IPV4_FAILURE_FATAL&#x3D;&quot;no&quot;</span><br><span class="line">IPV6INIT&#x3D;&quot;yes&quot;</span><br><span class="line">IPV6_AUTOCONF&#x3D;&quot;yes&quot;</span><br><span class="line">IPV6_DEFROUTE&#x3D;&quot;yes&quot;</span><br><span class="line">IPV6_FAILURE_FATAL&#x3D;&quot;no&quot;</span><br><span class="line">IPV6_ADDR_GEN_MODE&#x3D;&quot;stable-privacy&quot;</span><br><span class="line">NAME&#x3D;&quot;ens33&quot;</span><br><span class="line">UUID&#x3D;&quot;8f43c31f-4cad-46fe-a589-5d0ee7bf2010&quot;</span><br><span class="line">DEVICE&#x3D;&quot;ens33&quot;</span><br><span class="line">ONBOOT&#x3D;&quot;yes&quot;</span><br><span class="line">IPV6_PRIVACY&#x3D;&quot;no&quot;</span><br><span class="line">IPADDR&#x3D;172.16.108.129</span><br><span class="line">GATEWAY&#x3D;172.16.108.2</span><br><span class="line">NETMASK&#x3D;255.255.255.0</span><br><span class="line">DNS1&#x3D;114.114.114.144</span><br><span class="line">DNS2&#x3D;8.8.8.8</span><br></pre></td></tr></table></figure>
+<h2 id="server-HostOnly静态ip的配置"><a href="#server-HostOnly静态ip的配置" class="headerlink" title="server HostOnly静态ip的配置"></a>server HostOnly静态ip的配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">TYPE&#x3D;Ethernet</span><br><span class="line">PROXY_METHOD&#x3D;none</span><br><span class="line">BROWSER_ONLY&#x3D;no</span><br><span class="line">BOOTPROTO&#x3D;static</span><br><span class="line">DEFROUTE&#x3D;yes</span><br><span class="line">IPV4_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6INIT&#x3D;yes</span><br><span class="line">IPV6_AUTOCONF&#x3D;yes</span><br><span class="line">IPV6_DEFROUTE&#x3D;yes</span><br><span class="line">IPV6_FAILURE_FATAL&#x3D;no</span><br><span class="line">IPV6_ADDR_GEN_MODE&#x3D;stable-privacy</span><br><span class="line">NAME&#x3D;ens34</span><br><span class="line">UUID&#x3D;f76a820d-e6e0-4268-81d1-e48ce1964a44</span><br><span class="line">DEVICE&#x3D;ens34</span><br><span class="line">ONBOOT&#x3D;yes</span><br><span class="line">IPADDR&#x3D;192.168.14.20</span><br><span class="line">GATEWAY&#x3D;255.255.255.0</span><br></pre></td></tr></table></figure>
+<h2 id="网关查看命令"><a href="#网关查看命令" class="headerlink" title="网关查看命令"></a>网关查看命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">route -n</span><br></pre></td></tr></table></figure>
+<h2 id="配置node1和node2-方法一样"><a href="#配置node1和node2-方法一样" class="headerlink" title="配置node1和node2(方法一样)"></a>配置node1和node2(方法一样)</h2><h3 id="node1"><a href="#node1" class="headerlink" title="node1:"></a>node1:</h3><pre><code>NAT 静态ip
+172.16.108.130
+HostOnly 静态ip
+192.168.14.21</code></pre><h3 id="node2"><a href="#node2" class="headerlink" title="node2:"></a>node2:</h3><pre><code>NAT 静态ip
+172.16.108.131
+HostOnly 静态ip
+192.168.14.22</code></pre>
       
     </div>
 
